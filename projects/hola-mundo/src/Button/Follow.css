@@ -1,0 +1,20 @@
+.buttonNormal{
+    margin-left: 10px;
+    background-color: #fff;
+    border-radius: 100px;
+    border: none;
+    padding: 6px 10px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.follow{
+    background-color: rgb(0, 94, 255);
+    color: #fff;
+}
+.follow:hover{
+    background-color: rgb(36, 36, 36);
+    border: 1px red;
+    color: #fff;
+}

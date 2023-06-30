@@ -1,0 +1,66 @@
+.tw-users-article{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.tw-users-header{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tw-users-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.tw-users-img{
+    width: 47px;
+    height: 47px;
+    border-radius: 100%;
+}
+
+.tw-users-button{
+    margin-left: 10px;
+    background-color: #fff;
+    border-radius: 100px;
+    border: none;
+    padding: 6px 10px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+}
+
+.tw-users-button:hover{
+    background-color: #4265ff;
+    color: #fff;
+}
+
+.tw-users-button.following{
+    background-color: rgb(35, 35, 35);
+    border: 1px solid rgb(255, 255, 255);
+    color: white;
+    width: 120px;
+}
+
+.tw-users-button.following:hover{
+    background-color: rgb(255, 68, 68);
+    border: none;
+}
+.tw-users-button.following:hover .tw-users-text-unfollow{
+    display: block;
+}
+.tw-users-button.following:hover .tw-users-text{
+    display: none;
+}
+
+.tw-users-text{
+    display: block;
+}
+.tw-users-text-unfollow{
+    display: none;
+}
