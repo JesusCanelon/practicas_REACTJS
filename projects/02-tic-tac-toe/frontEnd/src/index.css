@@ -83,3 +83,19 @@ body {
 .tabla{
   margin: 10px;
 }
+
+.div_restarGame{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.div_restarGame button{
+  width: 100%;
+  background: none;
+  color: white;
+  outline: none;
+  border: 1px solid yellowgreen;
+  cursor: pointer;
+  padding: 10px;
+}

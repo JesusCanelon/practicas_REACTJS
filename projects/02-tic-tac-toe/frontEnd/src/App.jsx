@@ -12,8 +12,15 @@ const socket = io("http://localhost:3001");
 
 function App() {
 
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [turn, setTurn] = useState(TURNS.X);
+  const [board, setBoard] = useState(() => {
+    const boardFromStore = window.localStorage.getItem('board');
+    return boardFromStore ? JSON.parse(boardFromStore) : Array(9).fill(null)
+  });
+
+  const [turn, setTurn] = useState(() => {
+    const turnFromStore = window.localStorage.getItem('turn');
+    return turnFromStore ? turnFromStore : TURNS.X;
+  });
   const [winner, setWinner] = useState(null);
   const [estado, setEstado] = useState(true);
 
@@ -22,7 +29,7 @@ function App() {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
-
+    localStorage.clear();
     socket.emit("restar", {
       board: Array(9).fill(null),
       turn: TURNS.X,
@@ -56,6 +63,10 @@ function App() {
 
     //Establezco estado en false hasta que toque el turno nuevamente
     setEstado(false);
+
+    //Guardando en Local Storage para que se guarda si recargo
+    window.localStorage.setItem('board', JSON.stringify(newBoard));
+    window.localStorage.setItem('turn', newTurn);
 
     //Envio de movimiento por socket.io
     socket.emit("move", {
@@ -116,7 +127,7 @@ function App() {
         </form>
         
         <section className='board-h'>
-          <Tablero estado={estado} winner={winner} turn={turn} board={board} updateBoard={updateBoard}></Tablero>
+          <Tablero restarGame={restarGame} estado={estado} winner={winner} turn={turn} board={board} updateBoard={updateBoard}></Tablero>
           <WinnersModal winner={winner} restarGame={restarGame}></WinnersModal>
         </section>
         
