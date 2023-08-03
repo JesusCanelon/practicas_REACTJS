@@ -1,17 +1,18 @@
-import responseMovies from '../json/movies.json'
-import withoutMovies from '../json/movies-not-found.json'
+import { useRef, useState } from 'react';
+import { searchMovies } from '../services/movies';
 
 //Custom Hook para guardar datos de las peliculas
-export function useMovies () {
-    const movies = responseMovies.Search;
+export function useMovies({ searching }) {
+    const [movies, setMovies] = useState([])
+    const previousSearch = useRef({searching})
 
-    const mapped = movies?.map(movie => ({
-        id: movie.imdbID,
-        title: movie.Title,
-        poster: movie.Poster,
-        year: movie.Year,
-        type: movie.Type
-    }))
+    const getMovies = async () => {
+        if (searching === previousSearch.current) return
+        previousSearch.current = searching
+        console.log('hey');
+        const moviesFound = await searchMovies({searching})
+        setMovies(moviesFound)
+    }
 
-    return {movies: mapped}
+    return { movies, getMovies }
 }

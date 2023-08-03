@@ -1,40 +1,16 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { useMovies } from './hooks/useMovies';
-
+import { useMovies } from './hooks/useMovies'
+import useSearch from './hooks/useSearch'
 import { Movies } from './components/Movies'
-
-//Custom Hook useSearch()
-function useSearch () {
-  const [searching, setSearching] = useState('')
-  //Para el feedback de errores
-  const [errorStatus, setErrorStatus] = useState(null)
-
-  useEffect(() => {
-    if (searching === '') {
-      setErrorStatus('Cannot be empty')
-      return
-    }
-    if (searching.length < 3) {
-      setErrorStatus('Your should write 3 letters minimum')
-      return
-    }
-
-    setErrorStatus(null)
-  }, [searching])
-
-  return {searching, errorStatus, setSearching}
-}
 
 function App() {
   //Custom Hooks
-  const {movies} = useMovies()
   const {searching, errorStatus, setSearching} = useSearch()
-
+  const {movies, getMovies} = useMovies({searching})
+  
   //El simbolo de interrogacion es para comparar si es true o false y hacer return dicho valor
   const hasMovies = movies?.length > 0
-
-  
 
   //Funcion para submit del form
   const handleSubmit = (e) => {
@@ -47,7 +23,8 @@ function App() {
 
     //Puedes recuperar el valor asi:
     const form = new FormData(e.target)
-    console.log(form.get('inputSearch'));
+    const value = form.get('inputSearch')
+    getMovies()
   }
 
   //Funcion para capturar valor del input
@@ -57,7 +34,7 @@ function App() {
   }
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', placeItems: 'center'}}>
+    <div style={{display: 'flex', flexDirection: 'column', placeItems: 'center', width: '100%'}}>
       <header>
         <h1>Movie Browser</h1>
         <form className='formBrowser' onSubmit={handleSubmit}>

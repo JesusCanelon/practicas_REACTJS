@@ -1,11 +1,13 @@
+import './Movies.css'
+
 export const ListMoviesRender = ({ movies }) => {
     return (
-        <ul>
+        <ul className="listaMovies">
             {movies.map(movie => (
                 <li key={movie.id}>
                     <h3>{movie.title}</h3>
                     <p>{movie.year}</p>
-                    <img src={movie.poster} alt={movie.title} />
+                    <img className='moviesImages' src={movie.poster} alt={movie.title} />
                 </li>
             )
             )}
